@@ -57,6 +57,7 @@ class YoutubePlayer extends StatefulWidget {
     this.actionsPadding = const EdgeInsets.all(8.0),
     this.thumbnail,
     this.showVideoProgressIndicator = false,
+    this.overWidgets = const [],
   })  : progressColors = progressColors ?? const ProgressBarColors(),
         progressIndicatorColor = progressIndicatorColor ?? Colors.red;
 
@@ -147,6 +148,8 @@ class YoutubePlayer extends StatefulWidget {
   /// Default is false.
   /// {@endtemplate}
   final bool showVideoProgressIndicator;
+
+  final List<Widget> overWidgets;
 
   /// Converts fully qualified YouTube Url to video id.
   ///
@@ -307,6 +310,29 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
               widget.onEnded?.call(metaData);
             },
           ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: AnimatedOpacity(
+              opacity: controller.value.isPlaying ? 0 : 1,
+              duration: const Duration(milliseconds: 200),
+              child: Container(
+                height: 140,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.grey[800]!,
+                      Colors.grey[800]!.withOpacity(0.7),
+                      Colors.grey[800]!.withOpacity(0),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
           if (!controller.flags.hideThumbnail)
             AnimatedOpacity(
               opacity: controller.value.isPlaying ? 0 : 1,
@@ -397,6 +423,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
           if (!controller.flags.hideControls)
             const Center(child: PlayPauseButton()),
           if (controller.value.hasError) errorWidget,
+          ...widget.overWidgets,
         ],
       ),
     );
