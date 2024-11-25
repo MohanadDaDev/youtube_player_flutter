@@ -14,6 +14,7 @@ class PlaybackSpeedButton extends StatefulWidget {
     super.key,
     this.controller,
     this.icon,
+    this.onChange,
   });
 
   /// Overrides the default [YoutubePlayerController].
@@ -21,6 +22,8 @@ class PlaybackSpeedButton extends StatefulWidget {
 
   /// Defines icon for the button.
   final Widget? icon;
+
+  final ValueChanged<double>? onChange;
 
   @override
   State<PlaybackSpeedButton> createState() => _PlaybackSpeedButtonState();
@@ -48,7 +51,12 @@ class _PlaybackSpeedButtonState extends State<PlaybackSpeedButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<double>(
-      onSelected: _controller.setPlaybackRate,
+      onSelected: (value) {
+        _controller.setPlaybackRate(value);
+        if (widget.onChange != null) {
+          widget.onChange!(value);
+        }
+      },
       tooltip: 'PlayBack Rate',
       itemBuilder: (context) => [
         _popUpItem('2.0x', PlaybackRate.twice),
