@@ -324,9 +324,9 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.grey[900]!,
                       Colors.grey[900]!.withOpacity(0.9),
-                      Colors.grey[900]!.withOpacity(0.8),
+                      Colors.grey[900]!.withOpacity(0.9),
+                      Colors.grey[900]!.withOpacity(0.7),
                       Colors.grey[900]!.withOpacity(0),
                     ],
                   ),
