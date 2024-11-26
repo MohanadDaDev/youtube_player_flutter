@@ -318,14 +318,12 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
               opacity: controller.value.isPlaying ? 0 : 1,
               duration: const Duration(milliseconds: 200),
               child: Container(
-                height: 140,
+                height: 120,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.grey[800]!,
-                      Colors.grey[800]!,
                       Colors.grey[800]!,
                       Colors.grey[800]!,
                       Colors.grey[800]!.withOpacity(0.9),
